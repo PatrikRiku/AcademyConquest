@@ -4,9 +4,9 @@
     src: url('18thCentury.ttf') format('truetype'); /* Safari, Android, iOS */
 }
 
-.navbar {
-    display: none;
-}
+/*.navbar {*/
+    /*display: none;*/
+/*}*/
 
 #gameMap {
     width: 5027px;
@@ -264,4 +264,12 @@ a:link {
     color: yellow;
     text-shadow: 2px 2px #333;
     font-size: 1.2em;
+}
+
+#ifAttackIsPossible {
+  float: left;
+}
+
+.modal-footer > p {
+  text-align: left;
 }

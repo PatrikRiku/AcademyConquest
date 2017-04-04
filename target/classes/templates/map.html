@@ -33,7 +33,9 @@
                 <p id="CountryValues"></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Do it!</button>
+                <div id="ifAttackIsPossible"></div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Attack!</button>
+                <button type="button" id="btnAttack" class="btn btn-default" data-dismiss="modal">Close me</button>
             </div>
         </div>
 
@@ -57,8 +59,8 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="#">Link</a></li>
-                <li><a href="#">Link</a></li>
+                <li><a href="#">End turn</a></li>
+                <li><a href="#">"Active country"</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                     <ul class="dropdown-menu">

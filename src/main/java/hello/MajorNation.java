@@ -12,13 +12,13 @@ public class MajorNation {
     private List<String> countriesOwned;
 
     private List<String> countriesOwnedByUsa() {
-        List<String> countriesOwnedUsa = new ArrayList<>();
-        countriesOwnedUsa.add("g8");
-        countriesOwnedUsa.add("g9");
-        countriesOwnedUsa.add("g10");
-        countriesOwnedUsa.add("g11");
+        List<String> countriesOwnedByUsa = new ArrayList<>();
+        countriesOwnedByUsa.add("g8");
+        countriesOwnedByUsa.add("g9");
+        countriesOwnedByUsa.add("g10");
+        countriesOwnedByUsa.add("g11");
 
-        return countriesOwnedUsa;
+        return countriesOwnedByUsa;
     }
 
     private List<String> countriesOwnedByBritain() {
@@ -54,6 +54,8 @@ public class MajorNation {
         countriesOwnedRussia.add("g44");
         countriesOwnedRussia.add("g99");
         countriesOwnedRussia.add("g112");
+        countriesOwnedRussia.add("g100");
+        countriesOwnedRussia.add("g101");
 
         return countriesOwnedRussia;
     }
@@ -70,6 +72,10 @@ public class MajorNation {
 
     public List<String> getCountriesOwnedByUsa() {
         return countriesOwnedByUsa();
+    }
+
+    public void setCountriesOwnedByUsa(String country) {
+        countriesOwnedByUsa().add(country);
     }
 
     public List<String> getCountriesOwnedByBritain() {

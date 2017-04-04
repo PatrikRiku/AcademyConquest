@@ -38,18 +38,32 @@ function sendGameTurnData() {
 
 function updateGame(message) {
     //Vi splittar upp informationen för att kunna skriva värden på olika ställen
-    var countryContent = message.split("!1");
+    var firstSplit = message.split("kristofferrobin");
+    console.log("f1rst " + firstSplit);
+    var myAttackRegions = firstSplit[1].split("!1");
+    console.log("2nd " + myAttackRegions);
+    var countryContent = firstSplit[0].split("!1");
+    console.log("tre " + countryContent);
+    var clickedRegion = firstSplit[1].split("!3");
+    console.log("fyra " + clickedRegion);
     $("#CountryName").html(countryContent[0]);
     $("#CountryValues").html(countryContent[1]);
     $(".adjacent").removeClass("adjacent");
     $(".chosen").removeClass("chosen");
     $(".others").removeClass("others");
-    for(var i=2; i<countryContent.length-1; i++){
+    for(var i=2; i<countryContent.length; i++){
         $("#" + countryContent[i] + " > g > a > path").addClass("adjacent");
     }
-    $("#" + countryContent[countryContent.length-1] + " > g > a > path").addClass("chosen");
+    $("#" + clickedRegion[1] + " > g > a > path").addClass("chosen");
     $("path:not(.adjacent):not(.chosen)").addClass("others");
+    var abc = "";
+    for (var j=0; j<myAttackRegions.length; j++) {
+        abc +=  myAttackRegions[j]+"<br>";
+    }
+    $("#ifAttackIsPossible").append().html("<h4>Du kan attackera från:</h4><p>" + abc + "</p>");
 }
+
+
 
 $(function () {
     $("form").on('submit', function (e) {

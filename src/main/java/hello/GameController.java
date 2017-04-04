@@ -17,6 +17,8 @@ public class GameController {
     Board boardstuff = new Board();
     List<Region> gameStuff = boardstuff.getRegions();
     MajorNation majorNation = new MajorNation();
+    String activeCountry = "USA"; /*Hårdkodad lösning för att ha USA som "active country" och jämför då med länder ägda av USA
+                                    bör göras dynamisk. Funkar för alla länder.*/
 
     @GetMapping("/map")
     public ModelAndView map(HttpSession session) {
@@ -35,12 +37,64 @@ public class GameController {
         //Vi använder teckenkombination !1 för att kunna använda split i Javascript och dela upp texten
         int gInt = Integer.parseInt(gID)-1;
 
-        String currLand = gameStuff.get(gInt).getName() + "!1Troops " + gameStuff.get(gInt).getTroops() + "<br>Networth " + gameStuff.get(gInt).getNetworth();
+        String currLand = gameStuff.get(gInt).getName() + " !1Troops " + gameStuff.get(gInt).getTroops() + " <br>Networth " + gameStuff.get(gInt).getNetworth();
         for (String adjacent : gameStuff.get(gInt).getAdjacentRegions()) {
             currLand += "!1" + adjacent;
         }
-        currLand += "!1" + regionIdObject.getName();
 
+
+        if (activeCountry.equalsIgnoreCase("usa")) {
+            String result = "";
+            for (String item : gameStuff.get(gInt).getAdjacentRegions()) {
+                if (majorNation.getCountriesOwnedByUsa().contains(item)) {
+                    currLand += "kristofferrobin!1" + gameStuff.get(Integer.parseInt(item.substring(1)) - 1).getName();
+                }
+            }
+        }
+        else if (activeCountry.equalsIgnoreCase("britain")) {
+            String result = "";
+            for (String item : gameStuff.get(gInt).getAdjacentRegions()) {
+                if (majorNation.getCountriesOwnedByBritain().contains(item)) {
+                    currLand += "!1" + gameStuff.get(Integer.parseInt(item.substring(1)) - 1).getName();
+                }
+            }
+        }
+        else if (activeCountry.equalsIgnoreCase("france")) {
+            String result = "";
+            for (String item : gameStuff.get(gInt).getAdjacentRegions()) {
+                if (majorNation.getCountriesOwnedByFrance().contains(item)) {
+                    currLand += "!1" + gameStuff.get(Integer.parseInt(item.substring(1)) - 1).getName();
+                }
+            }
+        }
+        else if (activeCountry.equalsIgnoreCase("germany")) {
+            String result = "";
+            for (String item : gameStuff.get(gInt).getAdjacentRegions()) {
+                if (majorNation.getCountriesOwnedByGermany().contains(item)) {
+                    currLand += "!1" + gameStuff.get(Integer.parseInt(item.substring(1)) - 1).getName();
+                }
+            }
+        }
+        else if (activeCountry.equalsIgnoreCase("russia")) {
+            String result = "";
+            for (String item : gameStuff.get(gInt).getAdjacentRegions()) {
+                if (majorNation.getCountriesOwnedByRussia().contains(item)) {
+                    currLand += "!1" + gameStuff.get(Integer.parseInt(item.substring(1)) - 1).getName();
+                }
+            }
+        }
+        else if (activeCountry.equalsIgnoreCase("japan")) {
+            String result = "";
+            for (String item : gameStuff.get(gInt).getAdjacentRegions()) {
+                if (majorNation.getCountriesOwnedByJapan().contains(item)) {
+                    currLand += "!1" + gameStuff.get(Integer.parseInt(item.substring(1)) - 1).getName();
+                }
+            }
+        }
+        System.out.println(currLand);
+        System.out.println(gameStuff.get(gInt).getAdjacentRegions());
+
+        currLand += "!3" + regionIdObject.getName();
         return new RegionInfo(currLand);
     }
 

@@ -261,5 +261,7 @@ path:hover:not(.active) {
 
 a:link {
     text-decoration: none;
-    color: #f7b71a;
+    color: yellow;
+    text-shadow: 2px 2px #333;
+    font-size: 1.2em;
 }

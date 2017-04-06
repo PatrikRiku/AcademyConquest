@@ -15,7 +15,6 @@ public class ActiveCountry {
     public String getActiveCountry() {
         return activeCountry;
     }
-
     public void setActiveCountry(String activeCountry) {
         this.activeCountry = activeCountry;
     }

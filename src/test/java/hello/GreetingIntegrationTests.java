@@ -78,7 +78,7 @@ public class GreetingIntegrationTests {
                     }
                 });
                 try {
-                    session.send("/app/hello", new SelectedRegionObject("Spring"));
+                    //session.send("/app/hello", "");
                 } catch (Throwable t) {
                     failure.set(t);
                     latch.countDown();

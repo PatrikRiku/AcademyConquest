@@ -19,51 +19,67 @@ $(document).ready(function(){
         setConnected(true);
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/gameRoom', function (greeting) {
-            updateGame(JSON.parse(greeting.body).content);
+            updateGame(
+                JSON.parse(greeting.body).content,
+                JSON.parse(greeting.body).namesOfAttackRegions,
+                JSON.parse(greeting.body).idsForAdjacentRegions
+            );
         });
     });
 });
 
-function disconnect() {
-    if (stompClient != null) {
-        stompClient.disconnect();
-    }
-    setConnected(false);
-    console.log("Disconnected");
-}
+function updateGame(currentLand, namesOfAttackRegions, idsForAdjacentRegions) {
+    var currentLand = currentLand.split("!1");
+    var namesOfAttackRegions = namesOfAttackRegions.split("!2");
+    var idsForAdjacentRegions = idsForAdjacentRegions.split("!3");
 
-function sendGameTurnData() {
-    stompClient.send("/app/endTurn", {}, JSON.stringify({'name': $("#name").val()}));
-}
-
-function updateGame(message) {
-    // Vi splittar upp informationen för att kunna skriva värden på olika ställen.
-    // Strängen message splittas med "!split" och "!1" och "!2" och "!3".
-
-    var info = message.split("!split")
-    var regionInfoSplit = info[0].split("!1");
-    var namesOfAttackRegionsSplit = info[1].split("!2");
-    var adjacentRegionIdsSplit = info[2].split("!3");
-
-    $("#CountryName").html(regionInfoSplit[0]);
-    $("#CountryValues").html(regionInfoSplit[1]);
+    $("#CountryName").html(currentLand[0]);
+    $("#CountryValues").html(currentLand[1]);
 
     $(".adjacent").removeClass("adjacent");
     $(".chosen").removeClass("chosen");
     $(".others").removeClass("others");
-    for(var i=1; i<adjacentRegionIdsSplit.length-1; i++){
-        $("#" + adjacentRegionIdsSplit[i] + " > g > a > path").addClass("adjacent");
+    for(var i=1; i<idsForAdjacentRegions.length-1; i++){
+        $("#" + idsForAdjacentRegions[i] + " > g > a > path").addClass("adjacent");
     }
-    $("#" + adjacentRegionIdsSplit[adjacentRegionIdsSplit.length-1] + " > g > a > path").addClass("chosen");
+    $("#" + idsForAdjacentRegions[idsForAdjacentRegions.length-1] + " > g > a > path").addClass("chosen");
     $("path:not(.adjacent):not(.chosen)").addClass("others");
 
-    var abc = "";
-    for (var i=1; i<namesOfAttackRegionsSplit.length; i++) {
-        abc +=  namesOfAttackRegionsSplit[i]+"<br>";
+    var attackRegionOutput = "";
+    for (var i=1; i<namesOfAttackRegions.length; i++) {
+        attackRegionOutput += "<button type='button' class='btn btn-default attackFrom' data-dismiss='modal' value='" + namesOfAttackRegions[i] + "'>" + namesOfAttackRegions[i] + "</button><br>";
     }
-    $("#ifAttackIsPossible").append().html("<h4>Du kan attackera från:</h4><p>" + abc + "</p>");
+    $("#ifAttackIsPossible").append().html("<h4>Du kan attackera från:</h4>" + attackRegionOutput);
+    $(".attackFrom").click(function () {
+        stompClient.send("/app/attack", {}, JSON.stringify({'name':idsForAdjacentRegions[idsForAdjacentRegions.length-1]}));
+    });
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 $(function () {
     $("form").on('submit', function (e) {
         e.preventDefault();
@@ -72,3 +88,20 @@ $(function () {
     $( "#disconnect" ).click(function() { disconnect(); });
     $( "#endTurn" ).click(function() { sendGameTurnData(); });
 });
+*/
+
+/*
+ function disconnect() {
+ if (stompClient != null) {
+ stompClient.disconnect();
+ }
+ setConnected(false);
+ console.log("Disconnected");
+ }
+ */
+
+/*
+ function sendGameTurnData() {
+ stompClient.send("/app/endTurn", {}, JSON.stringify({'name': $("#name").val()}));
+ }
+ */

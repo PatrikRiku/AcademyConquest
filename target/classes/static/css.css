@@ -4,9 +4,9 @@
     src: url('18thCentury.ttf') format('truetype'); /* Safari, Android, iOS */
 }
 
-/*.navbar {*/
-/*display: none;*/
-/*}*/
+a:link {
+    text-shadow: 0px 0px 0px white !important;
+}
 
 #gameMap {
     width: 5027px;
@@ -102,14 +102,6 @@ path:hover:not(.active):not(.others) {
     cursor: pointer;
 }
 
-.active:hover {
-    animation: opacityShowActive 0.25s;
-    animation-fill-mode: forwards;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: 1;
-    cursor: pointer;
-}
-
 .adjacent {
     /*  */
 }
@@ -171,9 +163,14 @@ path:hover:not(.active):not(.others) {
 }
 
 .others {
-    opacity: 0.85 !important;
-    fill: black !important;
-    stroke: black !important;
+    opacity: 0.85;
+    fill: black;
+    stroke: black;
+}
+
+.others:hover {
+    opacity: 1;
+    cursor: pointer;
 }
 
 .others:hover {

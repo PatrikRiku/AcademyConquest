@@ -64,12 +64,12 @@ public class Repository implements IUser {
         );
     }
 
-    public UserSignUp rsUser(ResultSet rs) throws SQLException {
+    /*public UserSignUp rsUser(ResultSet rs) throws SQLException {
         return new UserSignUp(
 
                 rs.getString("Username"),
                 rs.getString("Password")
         );
-    }
+    }*/
 }
 
